@@ -21,23 +21,21 @@
         :items="availableStageVariants"
         v-model="inputData.stage"
       />
-      <v-text-field
+<!--      <v-text-field-->
+<!--        name="account_name"-->
+<!--        label="Account Name"-->
+<!--        :rules="inputRules.accountNameRules"-->
+<!--        v-model="inputData.accountName"-->
+<!--      />-->
+      <v-autocomplete
         name="account_name"
+        id="account_name"
         label="Account Name"
         :rules="inputRules.accountNameRules"
+        :items="accountVariants"
+        @input="fetchAccounts"
         v-model="inputData.accountName"
       />
-<!--      <v-autocomplete-->
-<!--        name="account_name"-->
-<!--        id="account_name"-->
-<!--        label="Account Name"-->
-<!--        :items="inputData.categoryVariants"-->
-<!--        item-title="name"-->
-<!--        item-value="id"-->
-<!--        @input="fetchCategories"-->
-<!--        v-model="inputData.category"-->
-<!--        return-object-->
-<!--      />-->
       <v-text-field
         name="closing_date"
         label="Closing Date"
@@ -73,10 +71,35 @@ export default {
       closingDate: "",
     },
     inputRules: {
-      nameRules: [],
-      stageRules: [],
-      accountNameRules: [],
-      closingDateRules: [],
+      nameRules: [
+        value => {
+          if (value) return true
+
+          return 'Deal Name is required.'
+        },
+      ],
+      stageRules: [
+
+      ],
+      accountNameRules: [
+        value => {
+          if (value) return true
+
+          return 'Account Name is required.'
+        },
+        // value => {
+          // if (this.accountVariants.includes(value)) return true
+          //
+          // return 'Account Name should correspond to an actual account.'
+        // },
+      ],
+      closingDateRules: [
+        value => {
+          if (value) return true
+
+          return 'Closing Date is required.'
+        },
+      ],
     },
     availableStageVariants: [
       "Qualification",
@@ -88,7 +111,8 @@ export default {
       "Closed Won",
       "Closed Lost",
       "Closed Lost to Competition"
-    ]
+    ],
+    accountVariants: [],
   }),
 
   methods: {
@@ -103,7 +127,16 @@ export default {
         console.log(resp)
         alert(resp.data.message)
       })
-    }
+    },
+    fetchAccounts() {
+      axios.get("http://127.0.0.1:8000/api/accounts").then(resp => {
+        this.accountVariants = resp.data.data
+      })
+    },
+  },
+
+  mounted() {
+    this.fetchAccounts()
   }
 }
 </script>

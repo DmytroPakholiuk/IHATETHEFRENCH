@@ -50,6 +50,13 @@ export default {
           if (value) return true
 
           return 'Account Phone is required.'
+        },
+        value => {
+          if (/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(value)){
+            return true;
+          }
+
+          return "Account Phone should be like 555-555-5555. Why? Because I said so"
         }
       ],
       websiteRules: [
@@ -57,6 +64,13 @@ export default {
           if (value) return true
 
           return 'Account Website is required.'
+        },
+        value => {
+          if (/^[a-zA-Z0-9-.]{2,}\.[a-zA-Z0-9-]{2,63}$/.test(value)){
+            return true;
+          }
+
+          return "Account Website should be a website"
         }
       ],
     }
