@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-         $schedule->command('app:refresh-token')->everyMinute()
+         $schedule->command('app:refresh-token')->everyThirtyMinutes()
             ->onSuccess(function (Stringable $output){
                 echo $output;
             })->onFailure(function (Stringable $output){

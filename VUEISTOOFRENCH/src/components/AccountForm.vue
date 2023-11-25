@@ -79,7 +79,7 @@ export default {
   methods: {
     sendData() {
       const data = this.inputData;
-      axios.post("http://127.0.0.1:8000/api/deals", data).then(resp => {
+      axios.post("http://127.0.0.1:8000/api/accounts", data).then(resp => {
         console.log(resp)
         alert(resp.data.message)
       })
