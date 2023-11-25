@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreDealRequest extends FormRequest
 {
@@ -22,10 +23,23 @@ class StoreDealRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "deal_name" => "",
-            "account_name" => "",
-            "closing_date" => "",
-            "stage" => ""
+            "name" => "required",
+            "account_name" => "required",
+            "closing_date" => "required|regex:/[0-9]{4}-[0-9]{2}-[0-9]{2}/",
+            "stage" => [
+                "required",
+                Rule::in([
+                    "Qualification",
+                    "Needs Analysis",
+                    "Value Proposition",
+                    "Identify Decision Makers",
+                    "Proposal/Price Quote",
+                    "Negotiation/Review",
+                    "Closed Won",
+                    "Closed Lost",
+                    "Closed Lost to Competition"
+                ])
+            ]
         ];
     }
 

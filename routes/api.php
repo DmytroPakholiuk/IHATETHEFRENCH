@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DealController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,6 @@ Route::prefix("/accounts")->controller(AccountController::class)->group(function
     Route::get("/", "index");
 });
 
-Route::prefix("/deals")->controller(AccountController::class)->group(function () {
+Route::prefix("/deals")->controller(DealController::class)->group(function () {
     Route::post("/", "store");
 });

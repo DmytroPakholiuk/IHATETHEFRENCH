@@ -22,9 +22,9 @@ class StoreAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "",
-            "website" => "",
-            "phone" => ""
+            "name" => "required",
+            "website" => "required|regex:/^[a-zA-Z0-9-.]{2,}\.[a-zA-Z0-9-]{2,63}$/",
+            "phone" => "required|regex:/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"
         ];
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAccountRequest;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreAccountRequest $request)
     {
         return [
             "message" => "Ok, you reached me",
-            "sentData" => $request->input()
+            "sentData" => $request->validated()
         ];
     }
 
