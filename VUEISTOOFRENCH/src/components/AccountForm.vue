@@ -82,6 +82,25 @@ export default {
       axios.post("http://127.0.0.1:8000/api/accounts", data).then(resp => {
         console.log(resp)
         alert(resp.data.message)
+        this.$router.go()
+      }).catch(error => {
+        if (error.response){
+          const response = error.response
+          console.log(error.response)
+          if (response.status === 422) {
+            let responseText = "Unprocessable content: "
+            for (const errorIndex in response.data.errors) {
+              for (const error1ErrorText of response.data.errors[errorIndex]) {
+                responseText += "\n"
+                responseText += error1ErrorText
+              }
+            }
+
+            alert(responseText)
+          }
+
+          alert("I dunno why, but there was an error somewhere")
+        }
       })
     }
   }
